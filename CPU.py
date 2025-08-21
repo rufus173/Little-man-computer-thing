@@ -1,6 +1,6 @@
 import os
 
-instructionSet = ['add', 'lda', 'sta', 'sub', 'hlt','inp','brp','del']
+instructionSet = ['add', 'lda', 'sta', 'sub', 'hlt','inp','brp','del','brz','bra']
 ACC = 0
 pc = 0
 memory = [0]
@@ -16,7 +16,7 @@ def clear():
 def initialise():
     global memory
     f = open("array.txt", "r")
-    a = f.read()
+    a = f.read().rstrip("\n")
     print('read', a)
     if not a:
         print('empty')
@@ -56,6 +56,7 @@ def instruction(n, b):
     global ACC
     global memory
     global flag
+    global pc
     print('decoding instruction', n, 'with operand', b)
     if n == 'add':
         ACC = (int(memory[b]) + ACC)
@@ -68,6 +69,12 @@ def instruction(n, b):
     if n == 'inp':
         inp = int(input('enter input'))
         ACC = inp
+    if n == 'bra':
+        pc = b
+    if n == 'brz' and ACC == 0:
+        pc = b
+    if n == 'brp' and ACC >= 0:
+        pc = b
     if n == 'del':
         memory = [0]
         for i in range(99):
