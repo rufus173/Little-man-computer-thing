@@ -1,5 +1,5 @@
 import os
-
+# i stole this program from king logan
 instructionSet = ['add', 'lda', 'sta', 'sub', 'hlt','inp','brp','del','brz','bra']
 ACC = 0
 pc = 0
